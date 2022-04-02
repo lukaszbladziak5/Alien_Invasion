@@ -28,17 +28,22 @@ class AlienInvasion:
 		"""Rozpoczęcie pętli głównej gry."""
 		
 		while True:
-			#Oczekiwanie na naciśnięcie klawisza lub przycisku myszy.
-			for event in pygame.event.get():
-				if event.type == pygame.QUIT:
-					sys.exit()
+			self._check_events()
+			self._update_screen()
 
-			#Odświeżenie ekranu w trakcie każdej iteracji pętli.
-			self.screen.fill(self.settings.bg_color)
-			self.ship.blitme()
+	def _check_events(self):
+		"""Reakcja na zdarzenia generowane przez klawiaturę i mysz."""
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				sys.exit()
 
-			#Wyświetlenie ostatnio zmodyfikowanego ekranu.
-			pygame.display.flip()
+	def _update_screen(self):
+		"""Uaktualnienie obrazów na ekranie i przejście do nowego ekranu."""
+		self.screen.fill(self.settings.bg_color)
+		self.ship.blitme()
+
+		#Wyświetlenie ostatnio zmodyfikowanego ekranu.
+		pygame.display.flip()
 
 if __name__ == '__main__':
 	#Utworzenie egzemplarza gry i jej uruchomienie.
