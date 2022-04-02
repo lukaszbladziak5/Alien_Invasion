@@ -2,6 +2,7 @@ import sys
 import pygame
 
 from settings import Settings
+from ship import Ship
 
 class AlienInvasion:
 	"""Ogólna klasa przeznaczona do zarządzania zasobami i sposobem działania
@@ -18,6 +19,8 @@ class AlienInvasion:
 			self.settings.screen_height))
 		pygame.display.set_caption("Inwazja Obcych!")
 
+		self.ship = Ship(self)
+
 		#Zdefiniowanie koloru tła.
 		self.bg_color = (self.settings.bg_color)
 
@@ -31,7 +34,8 @@ class AlienInvasion:
 					sys.exit()
 
 			#Odświeżenie ekranu w trakcie każdej iteracji pętli.
-			self.screen.fill(self.bg_color)
+			self.screen.fill(self.settings.bg_color)
+			self.ship.blitme()
 
 			#Wyświetlenie ostatnio zmodyfikowanego ekranu.
 			pygame.display.flip()
