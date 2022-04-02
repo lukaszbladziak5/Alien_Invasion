@@ -1,6 +1,8 @@
 import sys
 import pygame
 
+from settings import Settings
+
 class AlienInvasion:
 	"""Ogólna klasa przeznaczona do zarządzania zasobami i sposobem działania
 	gry."""
@@ -9,13 +11,15 @@ class AlienInvasion:
 		"""Inicjalizacja gry i utworzenie jej zasobów."""
 		
 		pygame.init()
+		self.settings = Settings()
 
 		#Zdefiniowanie powierzchni (okna) do gry i nadanie jej tytułu.
-		self.screen = pygame.display.set_mode((1200, 800))
+		self.screen = pygame.display.set_mode((self.settings.screen_width,
+			self.settings.screen_height))
 		pygame.display.set_caption("Inwazja Obcych!")
 
 		#Zdefiniowanie koloru tła.
-		self.bg_color = (230, 230, 230)
+		self.bg_color = (self.settings.bg_color)
 
 	def run_game(self):
 		"""Rozpoczęcie pętli głównej gry."""
