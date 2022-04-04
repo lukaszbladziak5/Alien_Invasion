@@ -15,8 +15,10 @@ class AlienInvasion:
 		self.settings = Settings()
 
 		#Zdefiniowanie powierzchni (okna) do gry i nadanie jej tytułu.
-		self.screen = pygame.display.set_mode((self.settings.screen_width,
-			self.settings.screen_height))
+		self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
+		self.settings.screen_width = self.screen.get_rect()
+		self.settings.screen_height = self.screen.get_rect()
+
 		pygame.display.set_caption("Inwazja Obcych!")
 
 		self.ship = Ship(self)
