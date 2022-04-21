@@ -33,5 +33,5 @@ job_monitor(job)
 counts = job.result().get_counts()
 
 print(counts)
-plt.hist(counts, rwidth = 0.8)
+plt.hist(job, rwidth = 0.8)
 plt.show()
