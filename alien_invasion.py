@@ -44,9 +44,12 @@ class AlienInvasion:
 		
 		while True:
 			self._check_events()
-			self.ship.update()
-			self._update_bullets()
-			self._update_aliens()
+
+			if self.stats.game_active:
+				self.ship.update()
+				self._update_bullets()
+				self._update_aliens()
+				
 			self._update_screen()
 
 	def _check_events(self):
@@ -129,19 +132,23 @@ class AlienInvasion:
 	def _ship_hit(self):
 		"""Reakcja na uderzenie obcego w statek."""
 
-		# Zmniejszenie wartości przechowywanej w ships_left.
-		self.stats.ships_left -= 1
+		if self.stats.ships_left > 0:
+			# Zmniejszenie wartości przechowywanej w ships_left.
+			self.stats.ships_left -= 1
 
-		# Usunięcie zawartości list aliens i bullets.
-		self.aliens.empty()
-		self.bullets.empty()
+			# Usunięcie zawartości list aliens i bullets.
+			self.aliens.empty()
+			self.bullets.empty()
 
-		# Utworzenie nowej floty i wyśrodkowanie statku.
-		self._create_fleet()
-		self.ship.center_ship()
+			# Utworzenie nowej floty i wyśrodkowanie statku.
+			self._create_fleet()
+			self.ship.center_ship()
 
-		# Pauza.
-		sleep(0.5)
+			# Pauza.
+			sleep(0.5)
+
+		else:
+			self.stats.game_active = False
 
 	def  _check_aliens_bottom(self):
 		"""Sprawdzenie, czy którykolwiek obcy dotarł do dolnej krawędzi
