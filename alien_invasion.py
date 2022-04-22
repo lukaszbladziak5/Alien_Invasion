@@ -1,7 +1,10 @@
 import sys
+from time import sleep
+
 import pygame
 
 from settings import Settings
+from game_stats import GameStats
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
@@ -22,6 +25,10 @@ class AlienInvasion:
 		self.settings.screen_height = self.screen.get_rect().height
 
 		pygame.display.set_caption("Inwazja Obcych!")
+
+		# Utworzenie egzemplarza przechowującego dane statystyczne dotyczące
+		# gry.
+		self.stats = GameStats(self)
 
 		self.ship = Ship(self)
 		self.bullets = pygame.sprite.Group()
@@ -110,6 +117,42 @@ class AlienInvasion:
 
 		self._check_fleet_edges()
 		self.aliens.update()
+
+		# Wykrywanie kolizji między statkiem i obcym.
+		if pygame.sprite.spritecollideany(self.ship, self.aliens):
+			self._ship_hit()
+
+		# Wyszukiwanie obcych docierających do dolnej krawędzi ekranu.
+
+		self._check_aliens_bottom()
+
+	def _ship_hit(self):
+		"""Reakcja na uderzenie obcego w statek."""
+
+		# Zmniejszenie wartości przechowywanej w ships_left.
+		self.stats.ships_left -= 1
+
+		# Usunięcie zawartości list aliens i bullets.
+		self.aliens.empty()
+		self.bullets.empty()
+
+		# Utworzenie nowej floty i wyśrodkowanie statku.
+		self._create_fleet()
+		self.ship.center_ship()
+
+		# Pauza.
+		sleep(0.5)
+
+	def  _check_aliens_bottom(self):
+		"""Sprawdzenie, czy którykolwiek obcy dotarł do dolnej krawędzi
+		ekranu."""
+
+		screen_rect = self.screen.get_rect()
+		for alien in self.aliens.sprites():
+			if alien.rect.bottom >= screen_rect.bottom:
+				# Tak samo jak w przypadku zderzenia statku z obcym.
+				self._ship_hit()
+				break
 
 	def _create_fleet(self):
 		"""Utworzenie pełnej floty obcych."""
