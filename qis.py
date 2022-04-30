@@ -32,6 +32,13 @@ job = execute(circuit, backend, shots=20000)
 job_monitor(job)
 counts = job.result().get_counts()
 
+probability = []
+for value in counts.values():
+	pro = value / 20000
+	probability.append(pro) 
+
 print(counts)
-plt.hist(job, rwidth = 0.8)
+plt.hist(probability, edgecolor = 'black')
 plt.show()
+
+#prawdopobienstwo na osi y powinno byc
