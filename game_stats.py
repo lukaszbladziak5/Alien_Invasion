@@ -15,3 +15,4 @@ class GameStats:
 		w trakcie gry."""
 
 		self.ships_left = self.settings.ship_limit
+		self.score = 0
