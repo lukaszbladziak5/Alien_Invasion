@@ -81,6 +81,8 @@ class AlienInvasion:
 			self.settings.initialize_dynamic_settings()
 			self.stats.reset_stats()
 			self.sb.prep_score()
+			self.sb.prep_level()
+			self.sb.prep_ships()
 			self.stats.game_active = True
 
 			# Usunięcie zawartości list aliens i bullets.
@@ -154,6 +156,10 @@ class AlienInvasion:
 			self._create_fleet()
 			self.settings.increase_speed()
 
+			# Inkrementacja numeru poziomu.
+			self.stats.level += 1
+			self.sb.prep_level()
+
 	def _update_aliens(self):
 		"""Sprawdzenie, czy flota obcych znajduje się przy krawędzi,
 		a następnie uaktualnienie położenia wszytkich obcych we flocie."""
@@ -173,8 +179,10 @@ class AlienInvasion:
 		"""Reakcja na uderzenie obcego w statek."""
 
 		if self.stats.ships_left > 0:
-			# Zmniejszenie wartości przechowywanej w ships_left.
+			# Zmniejszenie wartości przechowywanej w ships_left
+			# i uaktualnienie tablicy wyników.
 			self.stats.ships_left -= 1
+			self.sb.prep_ships()
 
 			# Usunięcie zawartości list aliens i bullets.
 			self.aliens.empty()
