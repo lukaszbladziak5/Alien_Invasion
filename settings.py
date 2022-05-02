@@ -2,7 +2,7 @@ class Settings:
 	"""Klasa przeznaczona do przechowywania wszystkich ustawień gry."""
 
 	def __init__(self):
-		"""Inicjalizacja gry."""
+		"""Inicjalizacja danych statystycznych gry."""
 
 		#Ustawienia ekranu.
 		self.screen_width = 1200
@@ -20,5 +20,26 @@ class Settings:
 		# Ustawienia dotyczącze obcego.
 		self.alien_speed = 1.0
 		self.fleet_drop_speed = 10
-		# Wartość fleet_direcyion wynosząca 1 oznacza prawo, natomiast -1 oznacza lewo.
+		# Wartość fleet_direction wynosząca 1 oznacza prawo, natomiast -1
+		#oznacza lewo.
 		self.fleet_direction = 1
+		#Łatwa zmiana szybkości gry.
+		self.speedup_scale = 2
+
+		self.initialize_dynamic_settings()
+
+	def initialize_dynamic_settings(self):
+		"""Inicjalizacja ustawień, które ulegają zmianie w trakcie gry."""
+
+		self.ship_speed = 1.5
+		self.bullet_speed = 3.0
+		self.alien_speed = 1.0
+		# Wartość fleet_direction wynosząca 1 oznacza prawo, natomiast -1
+		#oznacza lewo.
+		self.fleet_direction = 1
+
+	def increase_speed(self):
+		"""Zmiana ustawień dotyczących szybkości."""
+		self.ship_speed *= self.speedup_scale
+		self.bullet_speed *= self.speedup_scale
+		self.alien_speed *= self.speedup_scale
