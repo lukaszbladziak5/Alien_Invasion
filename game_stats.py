@@ -7,6 +7,9 @@ class GameStats:
 		self.settings = ai_game.settings
 		self.reset_stats()
 
+		# Najlepszy wynik nigdy nie powinien zostać wyzerowany.
+		self.high_score = 0
+
 		# Uruchomienie gry "Inwazja obcych" w stanie nieaktywnym.
 		self.game_active = False
 
