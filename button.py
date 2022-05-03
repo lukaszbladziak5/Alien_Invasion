@@ -18,7 +18,8 @@ class Button():
 		self.rect = pygame.Rect(0, 0, self.width, self.height)
 		self.rect.center = self.screen_rect.center
 
-		# Komunikat wyświetlany przez przycisk trzeba przygotować tylko jednokrotnie.
+		# Komunikat wyświetlany przez przycisk trzeba przygotować tylko
+		# jednokrotnie.
 		self._prep_msg(msg)
 
 	def _prep_msg(self, msg):

@@ -5,7 +5,7 @@ class Alien(Sprite):
 	"""Klasa przedstawiająca pojedynczego obcego we flocie."""
 
 	def __init__ (self, ai_game):
-		"""Inicjalizacja obcego i zdefiniowanie jego położenia początkowego."""
+		"""Inicjalizacja obcego i definiowanie jego położenia początkowego."""
 
 		super().__init__()
 		self.screen = ai_game.screen
@@ -31,6 +31,7 @@ class Alien(Sprite):
 
 	def update(self):
 		"""Przesunięcie obcego w prawo lub w lewo."""
+		
 		self.x += (self.settings.alien_speed * self.settings.fleet_direction)
 		self.rect.x = self.x
 

@@ -21,7 +21,7 @@ class AlienInvasion:
 		pygame.init()
 		self.settings = Settings()
 
-		#Zdefiniowanie powierzchni (okna) do gry i nadanie jej tytułu.
+		# Zdefiniowanie powierzchni (okna) do gry i nadanie jej tytułu.
 		self.screen = pygame.display.set_mode((0,0), pygame.FULLSCREEN)
 		self.settings.screen_width = self.screen.get_rect().width
 		self.settings.screen_height = self.screen.get_rect().height
@@ -40,7 +40,7 @@ class AlienInvasion:
 
 		self._create_fleet()
 
-		#Zdefiniowanie koloru tła.
+		# Zdefiniowanie koloru tła.
 		self.bg_color = self.settings.bg_color
 
 		# Utworzenie przycisku Gra.
@@ -60,6 +60,7 @@ class AlienInvasion:
 
 	def _check_events(self):
 		"""Reakcja na zdarzenia generowane przez klawiaturę i mysz."""
+
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				sys.exit()
@@ -98,6 +99,7 @@ class AlienInvasion:
 
 	def _check_keydown_events(self, event):
 		"""Reakcja na naciśnięcie klawisza."""
+
 		if event.key == pygame.K_RIGHT:
 			self.ship.moving_right = True
 		elif event.key == pygame.K_LEFT:
@@ -109,6 +111,7 @@ class AlienInvasion:
 
 	def _check_keyup_events(self, event):
 		"""Reakcja na zwolnienie klawisza."""
+
 		if event.key == pygame.K_RIGHT:
 			self.ship.moving_right = False
 		elif event.key == pygame.K_LEFT:
@@ -116,6 +119,7 @@ class AlienInvasion:
 
 	def _fire_bullet(self):
 		"""Utworzenie nowego pocisku i dodanie go do grupy pocisków."""
+
 		if len(self.bullets) < self.settings.bullets_allowed:
 			new_bullet = Bullet(self)
 			self.bullets.add(new_bullet)
@@ -131,7 +135,6 @@ class AlienInvasion:
 		for bullet in self.bullets.copy():
 			if bullet.rect.bottom <= 0:
 				self.bullets.remove(bullet)
-		#print(len(self.bullets))
 
 		self._check_bullet_alien_collisions()
 
@@ -251,7 +254,9 @@ class AlienInvasion:
 				break
 
 	def _change_fleet_direction(self):
-		"""Przesunięcie całej floty w dół i zmiana kierunku, w którym się ona porusza."""
+		"""Przesunięcie całej floty w dół i zmiana kierunku, w którym się ona 
+		porusza."""
+
 		for alien in self.aliens.sprites():
 			alien.rect.y += self.settings.fleet_drop_speed
 		self.settings.fleet_direction *= -1
@@ -259,6 +264,7 @@ class AlienInvasion:
 
 	def _update_screen(self):
 		"""Uaktualnienie obrazów na ekranie i przejście do nowego ekranu."""
+		
 		self.screen.fill(self.settings.bg_color)
 		self.ship.blitme()
 		for bullet in self.bullets.sprites():
